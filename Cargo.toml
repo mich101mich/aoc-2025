@@ -1,0 +1,15 @@
+[package]
+name = "aoc-2025"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cgmath = "0.18.0"
+copypasta = "0.10.1"
+nom = "8.0.0"
+num = "0.4.3"
+permutohedron = "0.2.4"
+rand = { version = "0.9.2", features = ["small_rng", "alloc"] }
+rayon = "1.10.0"
+regex = "1.11.1"
+sscanf = { git = "https://www.github.com/mich101mich/sscanf", branch = "dev" }
