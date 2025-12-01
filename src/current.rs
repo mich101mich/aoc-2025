@@ -8,18 +8,18 @@ pub fn run() {
 
     // let mut grid = _grid(input);
 
-    let mut pos = 50;
-    let mut result = 0;
-    for (dir, step) in input.lines().map(|l| sscanf!(l, "{char}{isize}").unwrap()) {
-        if dir == 'L' {
-            pos = (pos - step + 100) % 100;
-        } else {
-            pos = (pos + step + 100) % 100;
-        }
-        if pos == 0 {
-            result += 1;
-        }
-    }
+    let result = input
+        //.lines()
+        //.chars()
+        //.map(parse)
+        //.map(|l| sscanf!(l, "").unwrap())
+        //.map(|()|)
+        //.filter(|()|)
+        //.to_vec()
+        //.sum::<isize>()
+        //.inspect(|x| pv!(x))
+        //.count()
+        ;
 
     result!(result);
 }
