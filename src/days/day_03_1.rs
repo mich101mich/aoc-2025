@@ -3,7 +3,7 @@ use crate::utils::*;
 
 pub fn run() {
     #[allow(unused_variables)]
-    let input = include_str!("../input/current.txt");
+    let input = include_str!("../../input/day_03.txt");
     // let input = "";
 
     let result = input
