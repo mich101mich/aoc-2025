@@ -6,16 +6,20 @@ pub fn run() {
     let input = include_str!("../input/current.txt");
     // let input = "";
 
+    // let mut grid = _grid(input);
+
     let result = input
-        .lines()
-        .map(|row| row.as_bytes())
-        .map(|row| {
-            let first_digit = *row[..row.len() - 1].iter().max().unwrap();
-            let start = row.iter().position(|b| *b == first_digit).unwrap();
-            let second_digit = *row[start + 1..].iter().max().unwrap();
-            (first_digit - b'0') as usize * 10 + (second_digit - b'0') as usize
-        })
-        .sum::<usize>();
+        //.lines()
+        //.chars()
+        //.map(parse)
+        //.map(|l| sscanf!(l, "").unwrap())
+        //.map(|()|)
+        //.filter(|()|)
+        //.to_vec()
+        //.sum::<isize>()
+        //.inspect(|x| pv!(x))
+        //.count()
+        ;
 
     result!(result);
 }
