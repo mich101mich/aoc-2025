@@ -6,14 +6,20 @@ pub fn run() {
     let input = include_str!("../input/current.txt");
     // let input = "";
 
-    let grid = dotted_grid(input, '@');
+    // let mut grid = _grid(input);
 
-    let neigh = grid.moore();
-
-    let result = grid
-        .pos_iter()
-        .filter(|p| neigh.get_all_neighbors(*p).filter(|o| grid[o]).count() < 4)
-        .count();
+    let result = input
+        //.lines()
+        //.chars()
+        //.map(parse)
+        //.map(|l| sscanf!(l, "").unwrap())
+        //.map(|()|)
+        //.filter(|()|)
+        //.to_vec()
+        //.sum::<isize>()
+        //.inspect(|x| pv!(x))
+        //.count()
+        ;
 
     result!(result);
 }
