@@ -8,19 +8,18 @@ pub fn run() {
 
     // let mut grid = _grid(input);
 
-    let mut iter = input.lines();
-
-    let ranges = iter
-        .by_ref()
-        .take_while(|l| !l.is_empty())
-        .map(|l| sscanf!(l, "{usize}-{usize}").unwrap())
-        .map(|(a, b)| a..=b)
-        .to_vec();
-
-    let result = iter
-        .map(parse_u)
-        .filter(|x| ranges.iter().any(|r| r.contains(x)))
-        .count();
+    let result = input
+        //.lines()
+        //.chars()
+        //.map(parse)
+        //.map(|l| sscanf!(l, "").unwrap())
+        //.map(|()|)
+        //.filter(|()|)
+        //.to_vec()
+        //.sum::<isize>()
+        //.inspect(|x| pv!(x))
+        //.count()
+        ;
 
     result!(result);
 }
