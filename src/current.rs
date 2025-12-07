@@ -6,30 +6,20 @@ pub fn run() {
     let input = include_str!("../input/current.txt");
     // let input = "";
 
-    let mut grid = char_grid(input);
+    // let mut grid = _grid(input);
 
-    let start = grid.find('S').unwrap();
-
-    grid[start] = '.';
-    let grid = grid.map(|c| *c == '^');
-
-    let mut positions = HashSet::new();
-    let mut new_positions = HashSet::new();
-    positions.insert(start.x);
-
-    let mut result = 0;
-    for y in start.y + 1..grid.h() {
-        for x in positions.drain() {
-            if grid[y][x] {
-                result += 1;
-                new_positions.insert(x - 1);
-                new_positions.insert(x + 1);
-            } else {
-                new_positions.insert(x);
-            }
-        }
-        swap!(positions, new_positions);
-    }
+    let result = input
+        //.lines()
+        //.chars()
+        //.map(parse)
+        //.map(|l| sscanf!(l, "").unwrap())
+        //.map(|()|)
+        //.filter(|()|)
+        //.to_vec()
+        //.sum::<isize>()
+        //.inspect(|x| pv!(x))
+        //.count()
+        ;
 
     result!(result);
 }
