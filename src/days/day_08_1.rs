@@ -8,7 +8,7 @@ fn sq_euclid(a: Point3D, b: Point3D) -> usize {
 
 pub fn run() {
     #[allow(unused_variables)]
-    let input = include_str!("../input/current.txt");
+    let input = include_str!("../../input/day_08.txt");
     //     let input = "162,817,812
     // 57,618,57
     // 906,360,560
