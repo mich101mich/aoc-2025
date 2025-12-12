@@ -3,7 +3,7 @@ use crate::utils::*;
 
 pub fn run() {
     #[allow(unused_variables)]
-    let input = include_str!("../input/current.txt");
+    let input = include_str!("../../input/day_12.txt");
     //     let input = "0:
     // ###
     // ##.
@@ -38,10 +38,19 @@ pub fn run() {
     // 12x5: 1 0 1 0 2 2
     // 12x5: 1 0 1 0 3 2";
 
+    // let mut grid = _grid(input);
+
     // Assumptions (sorry):
     // - Regions are no wider than 64, meaning we can use 64bit masks
+    // - Shapes are 3x3
+    // - There are 6 shapes
 
-    type Shape = Vec<u64>;
+    // approach:
+    // - Each shape is 3x3, so the first shape has to be placed within the top left 3x3 corner.
+    //   - Proof: Otherwise, you could just fit another shape into that space, meaning the
+    //     current tiling wasn't optimal
+
+    type Shape = [u64; 3];
 
     #[derive(Debug)]
     struct ShapeMeta {
@@ -49,13 +58,16 @@ pub fn run() {
         num_set: u32,
     }
 
-    type Shapes = Vec<ShapeMeta>;
+    type Shapes = [ShapeMeta; 6];
+    type Counts = [u8; 6];
+
+    const TARGET: Counts = [0; _];
 
     let blocks = input.split("\n\n").to_vec();
     let (regions, shapes) = blocks.split_last().unwrap();
 
     fn to_shape(grid: &Grid<bool>) -> Shape {
-        let mut ret = vec![0; grid.h()];
+        let mut ret = Shape::default();
         for p in grid.pos_iter() {
             ret[p.y] |= 1 << p.x;
         }
@@ -116,16 +128,18 @@ pub fn run() {
                 num_set,
             }
         })
-        .to_vec();
+        .to_vec()
+        .try_into()
+        .unwrap();
 
     fn solve(
-        counts: &mut [usize],
+        counts: &mut Counts,
         mut required: u32,
         grid: &mut [u64],
         w: usize,
         shapes: &Shapes,
     ) -> bool {
-        if counts.iter().all(|c| *c == 0) {
+        if *counts == TARGET {
             return true;
         }
         for y in 0..=grid.len() - 3 {
@@ -167,8 +181,11 @@ pub fn run() {
     let result = regions
         .lines()
         .filter(|region| {
-            let (w, h, counts) = sscanf!(region, "{usize}x{usize}: {str}").unwrap();
-            let mut counts = counts.split_ascii_whitespace().map(parse_u).to_vec();
+            let (w, h, count_str) = sscanf!(region, "{usize}x{usize}: {str}").unwrap();
+            let mut counts = Counts::default();
+            for (i, o) in count_str.split_ascii_whitespace().zip(&mut counts) {
+                *o = i.parse().unwrap();
+            }
 
             let mut required = counts
                 .iter()
@@ -177,17 +194,13 @@ pub fn run() {
                 .sum();
 
             let mut grid = vec![0u64; h];
-
-            // Each shape is 3x3, so the first shape has to be placed within the top left 3x3 corner.
-            // Proof: Otherwise, you could just fit another shape into that space, meaning the
-            //        current tiling wasn't optimal
-            for y in 0..3 {
-                for x in 0..3 {
-                    if y + 3 > h || x + 3 > w {
-                        continue;
-                    }
-                    for (i, meta) in shapes.iter().enumerate() {
-                        if counts[i] == 0 {
+            for (i, meta) in shapes.iter().enumerate() {
+                if counts[i] == 0 {
+                    continue;
+                }
+                for y in 0..3 {
+                    for x in 0..3 {
+                        if y + 3 > h || x + 3 > w {
                             continue;
                         }
                         for shape in &meta.orientations {
